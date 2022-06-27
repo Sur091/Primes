@@ -1,13 +1,13 @@
 def primes(num):
-    dictionary = {}
-    for a in range(3, num, 2):
-        dictionary[a] = True
-    for a in range(3, int(num ** 0.5) + 1, 2):
-        if dictionary[a]:
-            for b in range(a * a, num, a):
-                dictionary[b] = False
+    l_ = (num - 1) // 2
+    pri = [True] * l_
 
-    return [2] + [x for x in dictionary if dictionary[x]]
+    for a in range(int(num ** 0.5) // 2 + 1):
+        if pri[a]:
+            start, step = 2 * a * a + 6 * a + 3, 2 * a + 3
+            pri[start::step] = [False] * len(range(start, l_, step))
+
+    return sum(pri) + 1
 
 
-print(len(primes(10000000)))
+print(primes(100_000_000))
