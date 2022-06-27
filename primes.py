@@ -1,15 +1,13 @@
 def primes(num):
-    lst = [2]
-
+    dictionary = {}
     for a in range(3, num, 2):
-        pri = True
-        for b in range(3, int(a ** 0.5) + 1, 2):
-            if a % b == 0:
-                pri = False
-                break
-        if pri:
-            lst.append(a)
-    return lst
+        dictionary[a] = True
+    for a in range(3, int(num ** 0.5) + 1, 2):
+        if dictionary[a]:
+            for b in range(a * a, num, a):
+                dictionary[b] = False
+
+    return [2] + [x for x in dictionary if dictionary[x]]
 
 
-print(len(primes(1000000)))
+print(len(primes(10000000)))
